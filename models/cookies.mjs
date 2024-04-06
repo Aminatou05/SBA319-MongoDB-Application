@@ -1,6 +1,6 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
-const cookieSchema = new mangoose.Schema({
+const cookieSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true

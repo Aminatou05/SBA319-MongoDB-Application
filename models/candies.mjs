@@ -16,6 +16,10 @@ const candySchema = new mongoose.Schema({
      },
   readyToEat: Boolean,
 });
+
+// Indexes for frequently queried fields
+candySchema.index({ name: 1 }); // Index for querying by name
+candySchema.index({ color: 1 }); // Index for querying by color
 const Candy = mongoose.model("candy", candySchema);
 
 export default Candy;

@@ -6,7 +6,7 @@ class Show extends React.Component {
         const candy = this.props.candy;
 
         return (
-            <DefaultLayout title="Show an Individual Fruit">
+            <DefaultLayout title="Show an Individual Candy">
                 <p>The {candy.name} is {candy.color} and {candy.quantity}</p>
                 {candy.readyToEat ? 'It is ready to eat' : "NOT READY!"}
                 <br />

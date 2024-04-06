@@ -6,6 +6,7 @@ import jsxViewEngine from "jsx-view-engine";
 import methodOverride from "method-override";
 import db from "./db/connection.mjs";
 import candyRoutes from './controllers/candy.mjs'
+import cookieRoutes from './controllers/cookie.mjs'
 
 
 // creating express application
@@ -29,11 +30,14 @@ app.use(methodOverride("_method"));
 // ================ Routes ================
 
 app.use("/candies", candyRoutes);
+app.use("/cookies", cookieRoutes);
 
 app.get("/", (req, res) => {
   res.send(
-    // `<div> this is my fruits and vegetables root route <br/><a href='/fruits'>fruits</a></div>`
-    `<div> this is my  candies root route <br/><a href='/candies'>candies</a></div>`
+    `<div>This is my candies and cookies route Taste of Home 
+    <br/><a href='/candies'>candies</a><br/><a href='/cookies'>cookies</a></div>`
+   
+
   );
 });
 
