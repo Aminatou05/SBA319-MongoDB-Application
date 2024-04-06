@@ -11,7 +11,7 @@ class New extends React.Component {
                     Color: < input type="text" name="color"/> <br />
                     Quantity: <input type="text" name="quantity"/><br/>
                     Is Ready to Eat: <input type="checkbox" name="readyToEat"/> <br />
-                    <input type="submit" name="" value="Create candy"/>
+                    <input type="submit" name="" value="Create Candy"/>
                 </form>
             </DefaultLayout>
         )

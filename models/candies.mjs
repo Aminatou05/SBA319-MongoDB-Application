@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const candySchema = new mongoose.Schema({
   name: {
@@ -16,6 +16,6 @@ const candySchema = new mongoose.Schema({
      },
   readyToEat: Boolean,
 });
-const Candy = mongoose.model("Candy", candySchema);
+const Candy = mongoose.model("candy", candySchema);
 
 export default Candy;

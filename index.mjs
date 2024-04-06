@@ -28,12 +28,12 @@ app.use(methodOverride("_method"));
 
 // ================ Routes ================
 
-app.use("/cadies", candyRoutes);
+app.use("/candies", candyRoutes);
 
 app.get("/", (req, res) => {
   res.send(
     // `<div> this is my fruits and vegetables root route <br/><a href='/fruits'>fruits</a></div>`
-    `<div> this is my  candies root route <br/><a href='/candies'>Candies</a></div>`
+    `<div> this is my  candies root route <br/><a href='/candies'>candies</a></div>`
   );
 });
 

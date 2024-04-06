@@ -7,7 +7,7 @@ import db from "../db/connection.mjs";
 router.get("/seed", async (req, res) => {
   console.log("in seed");
   try {
-    await Fruit.create([
+    await Candy.create([
       {
         name: "Lollipop",
         color: "pink",
@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
     res.status(400).send(err);
   }
 });
-// N - New - allows a user to input a new Candy
+// // N - New - allows a user to input a new Candy
 router.get("/new", (req, res) => {
   res.render("candies/New");
 });
@@ -51,12 +51,12 @@ router.delete("/:id", async (req, res) => {
   try {
     const deletedCandy = await Candy.findByIdAndDelete(req.params.id);
     console.log(deletedCandy);
-    res.status(200).redirect("candies");
+    res.status(200).redirect("/candies");
   } catch (err) {
     res.status(400).send(err);
   }
 });
-// U - UPDATE
+// // U - UPDATE
 router.put("/:id", async (req, res) => {
   if (req.body.readyToEat === "on") {
     req.body.readyToEat = true;
@@ -68,7 +68,7 @@ router.put("/:id", async (req, res) => {
     const updatedCandy = await Candy.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true }
+      { new: true },
     );
     console.log(updatedCandy);
     res.redirect(`/candies/${req.params.id}`);
@@ -92,7 +92,7 @@ router.post("/", async (req, res) => {
 
   try {
     const createdCandy = await Candy.create(req.body);
-    res.status(200).redirect("/candies");
+    res.status(200).send(createdCandy);
   } catch (err) {
     res.status(400).send(err);
   }
