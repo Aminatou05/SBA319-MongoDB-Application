@@ -39,14 +39,14 @@ router.get("/", async (req, res) => {
     const foundCandies = await Candy.find({});
     res.status(200).render("candies/Index", { candies: foundCandies });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send('Error fetching candies');
   }
 });
 // // N - New - allows a user to input a new Candy
 router.get("/new", (req, res) => {
   res.render("candies/New");
 });
-//ID- DELETE--
+// DELETE a candy by ID
 router.delete("/:id", async (req, res) => {
   try {
     const deletedCandy = await Candy.findByIdAndDelete(req.params.id);
@@ -56,7 +56,7 @@ router.delete("/:id", async (req, res) => {
     res.status(400).send(err);
   }
 });
-// // U - UPDATE
+// update a candy by ID
 router.put("/:id", async (req, res) => {
   if (req.body.readyToEat === "on") {
     req.body.readyToEat = true;
@@ -78,23 +78,17 @@ router.put("/:id", async (req, res) => {
 });
 
 //CREATE
-// I am starting with my post route so that I can see the things in my database
+// To test the validation rules, you can send a POST request to the route with invalid data, such as
+// a negative quantity or a missing name, and check that the route responds with a 400 status code and an appropriate error message.
 router.post("/", async (req, res) => {
-  // // this will be useful when have a user input form
-  if (req.body.readyToEat === "on") {
-    // if checked, req.body.readyToEat is set to 'on' - or the checkbox is checked
-    req.body.readyToEat = true;
-  } else {
-    // if not checked, then it was undefined
-    req.body.readyToEat = false;
-  }
-  console.log(req.body);
+  // Convert 'on' to true for readyToEat checkbox
+  req.body.readyToEat = req.body.readyToEat === "on";
 
   try {
     const createdCandy = await Candy.create(req.body);
     res.status(200).send(createdCandy);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message); // Send only the error message
   }
 });
 

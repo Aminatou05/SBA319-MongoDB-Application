@@ -26,6 +26,7 @@ router.get("/seed", async (req, res) => {
           quantity: "20",
           readyToEat: true,
         },
+        
       ]);
       res.status(200).redirect("/cookies");
     } catch (err) {
@@ -38,7 +39,7 @@ router.get("/", async (req, res) => {
     const foundCookies = await Cookie.find({});
     res.status(200).render("cookies/Index", { cookies: foundCookies });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send('Error fetching cookies');
   }
 });
 
@@ -46,7 +47,7 @@ router.get("/", async (req, res) => {
 router.get("/new", (req, res) => {
   res.render("cookies/New");
 });
-//ID- DELETE--
+// DELETE a cookie by ID
 router.delete("/:id", async (req, res) => {
   try {
     const deletedCookie = await Cookie.findByIdAndDelete(req.params.id);
@@ -56,7 +57,7 @@ router.delete("/:id", async (req, res) => {
     res.status(400).send(err);
   }
 });
-// // U - UPDATE
+// PUT/update a cookie by ID
 router.put("/:id", async (req, res) => {
   if (req.body.readyToEat === "on") {
     req.body.readyToEat = true;
