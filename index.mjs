@@ -7,6 +7,7 @@ import methodOverride from "method-override";
 import db from "./db/connection.mjs";
 import candyRoutes from './controllers/candy.mjs'
 import cookieRoutes from './controllers/cookie.mjs'
+import userRoutes from './controllers/user.mjs'
 
 
 // creating express application
@@ -31,11 +32,12 @@ app.use(methodOverride("_method"));
 
 app.use("/candies", candyRoutes);
 app.use("/cookies", cookieRoutes);
+app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.send(
     `<div>This is my candies and cookies route Taste of Home 
-    <br/><a href='/candies'>candies</a><br/><a href='/cookies'>cookies</a></div>`
+    <br/><a href='/candies'>candies</a><br/><a href='/cookies'>cookies</a><br/><a href='/users'>users</a</div>`
    
 
   );
