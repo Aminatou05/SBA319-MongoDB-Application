@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
     const foundCandies = await Candy.find({});
     res.status(200).render("candies/Index", { candies: foundCandies });
   } catch (err) {
-    res.status(400).send('Error fetching candies');
+    res.status(400).send(err);
   }
 });
 // // N - New - allows a user to input a new Candy
@@ -80,17 +80,23 @@ router.put("/:id", async (req, res) => {
 //CREATE
 // To test the validation rules, you can send a POST request to the route with invalid data, such as
 // a negative quantity or a missing name, and check that the route responds with a 400 status code and an appropriate error message.
-router.post("/", async (req, res) => {
-  // Convert 'on' to true for readyToEat checkbox
-  req.body.readyToEat = req.body.readyToEat === "on";
+router.post('/', async(req, res) => {
+  // // this will be useful when have a user input form
+  if (req.body.readyToEat === 'on') { // if checked, req.body.readyToEat is set to 'on' - or the checkbox is checked
+      req.body.readyToEat = true;
+  } else {                            // if not checked, then it was undefined
+      req.body.readyToEat = false;
+  }
+  console.log(req.body)
 
   try {
-    const createdCandy = await Candy.create(req.body);
-    res.status(200).send(createdCandy);
+      const createdCandy = await Candy.create(req.body);
+      res.status(200).send(createdCandy);
   } catch (err) {
-    res.status(400).send(err.message); // Send only the error message
+      res.status(400).send(err);
   }
-});
+})
+
 
 //  EDIT - update an existing entry in the database
 router.get("/:id/edit", async (req, res) => {

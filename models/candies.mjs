@@ -20,8 +20,8 @@ readyToEat: {
 });
 
 // Indexes for frequently queried fields
-candySchema.index({ name: 1 }); // Index for querying by name
-candySchema.index({ color: 1 }); // Index for querying by color
+// candySchema.index({ name: 1 }); // Index for querying by name
+// candySchema.index({ color: 1 }); // Index for querying by color
 
 
 const Candy = mongoose.model("candy", candySchema);

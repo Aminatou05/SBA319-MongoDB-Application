@@ -66,7 +66,7 @@ router.get("/", async (req, res) => {
   });
   
   
-  // // N - New - allows a user to input a new Candy
+  // // N - New - allows a user to add a new User
   router.get("/new", (req, res) => {
     res.render("users/New");
 
@@ -82,24 +82,35 @@ router.get("/", async (req, res) => {
       res.status(400).send(err);
     }
   });
-// // PATCH/update a user by ID You can test this route using a tool like Postman or curl by sending a PATCH request to /users/:id with a JSON body containing the fields to be updated
-router.patch("/:id", async (req, res) => {
+// // PATCH/update a user by ID 
+router.put("/:id", async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).json(updatedUser);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+        console.log(updatedUser)
+        res.redirect(`/users/${req.params.id}`);
+      } catch (err) {
+        res.status(400).send(err);
+      }
 });
 
+// post 
 router.post("/", async (req, res) => {
+    const { name, email, age } = req.body;
+  
     try {
-      const newUser = await User.create(req.body);
+      const existingUser = await User.findOne({ email });
+  
+      if (existingUser) {
+        return res.status(400).send("User with this email already exists.");
+      }
+  
+      const newUser = await User.create({ name, email, age });
       res.status(200).send(newUser);
     } catch (err) {
-      res.status(400).send(err.message); // Send only the error message
+      res.status(400).send(err.message);
     }
   });
+  
   
   //  EDIT - update an existing entry in the database
 router.get("/:id/edit", async (req, res) => {

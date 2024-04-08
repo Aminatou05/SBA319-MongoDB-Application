@@ -7,7 +7,7 @@ class Show extends React.Component {
 
         return (
             <DefaultLayout title="Show an Individual Candy">
-                <p>The {candy.name} is {candy.color} and {candy.quantity}</p>
+                <p>The {candy.name} is {candy.color} {candy.quantity}</p>
                 {candy.readyToEat ? 'It is ready to eat' : "NOT READY!"}
                 <br />
                 <a href={`/candies/${candy._id}/edit`}>Edit This Candy</a>
