@@ -10,7 +10,8 @@ class Show extends React.Component {
       <DefaultLayout title="Show an Individual User">
         <p>
           The {user.name} is {user.email} and {user.age} years old
-        </p>
+        </p> {user.rememberMe ? `Remember Me`
+                           :   `Do Not Remember Me`}
 
         <br />
         <a href={`/users/${user._id}/edit`}>Get This User</a>

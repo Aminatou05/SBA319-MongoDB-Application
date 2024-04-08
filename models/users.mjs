@@ -14,8 +14,10 @@ const userSchema = new mongoose.Schema({
       age: {
         type: Number,
         required: true,
-        min: 10,
+        min: 18, //validation rules for the age field
+        max: 70
       },
+      rememberMe: Boolean
 });
 
 const User = mongoose.model('User', userSchema);

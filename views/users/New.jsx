@@ -9,6 +9,7 @@ class New extends React.Component {
                     Name: <input type="text" name="name" /><br />
                     Email: <input type="email" name="email" /><br />
                     Age: <input type="number" name="age" /><br />
+                    Remember Me: <input type="checkbox" name="rememberMe"/> <br />
                     <input type="submit" value="Create User"/>
                 </form>
             </DefaultLayout>

@@ -16,7 +16,11 @@ class Index extends React.Component {
                 <li key={i}>
                   The{" "}
                   <a href={`/users/${user._id}`}>{user.name}</a> is{" "}
-                  {user.email} {user.age} years old<br />
+                  {user.email} {user.age} years old<br></br>
+                  {user.RememberMe
+                                ?`Remember Me`
+                           :   `Do Not Remember Me `}
+                            <br />
                   <a href={`/users/${user._id}/edit`}>
                     Edit This User
                   </a>

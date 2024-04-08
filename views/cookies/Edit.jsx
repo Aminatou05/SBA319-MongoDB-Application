@@ -1,6 +1,6 @@
 //cookies/Edit.jsx
 const React = require('react');
-
+// As you can see we are using the app layout
 const DefaultLayout = require('../layout/Default.jsx')
 
 class Edit extends React.Component{
@@ -14,7 +14,7 @@ class Edit extends React.Component{
           Color: <input type="text" name="color"  defaultValue={this.props.cookie.color}/><br/>
           Quantity: <input type="text" name="quantity"  defaultValue={this.props.cookie.quantity}/><br/>
           Is Ready To Eat:
-              { this.props.candy.readyToEat? <input type="checkbox" name="readyToEat" defaultChecked />: <input type="checkbox" name="readyToEat"/> }
+              { this.props.cookie.readyToEat? <input type="checkbox" name="readyToEat" defaultChecked />: <input type="checkbox" name="readyToEat"/> }
           <br/>
           <input type="submit" value="Submit Changes"/>
       </form>

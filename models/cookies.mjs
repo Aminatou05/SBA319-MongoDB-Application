@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 const cookieSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
+        require: true,
+        minlength: 5,
+        maxlength: 50,
+        unique: true // Ensures that each cookie name is unique
 
     },
 
@@ -13,7 +16,8 @@ const cookieSchema = new mongoose.Schema({
     },
     quantity: {
          type: Number, 
-         required: true 
+         required: true,
+         min: 0
         },
     readyToEat: Boolean
 });

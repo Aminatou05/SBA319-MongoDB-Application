@@ -1,3 +1,4 @@
+
 const React = require('react');
 const DefaultLayout = require('../layout/Default')
 
@@ -17,5 +18,7 @@ class New extends React.Component {
         )
     }
 }
+
+
 
 module.exports = New;

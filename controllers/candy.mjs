@@ -27,85 +27,101 @@ router.get("/seed", async (req, res) => {
         readyToEat: true,
       },
     ]);
-    res.status(200).redirect("/candies");
+    res.status(200).redirect('/candies');
   } catch (err) {
-    res.status(400).send(err);
+      res.status(400).send(err);
   }
 });
 
-// I - Index   display a list of elements
-router.get("/", async (req, res) => {
+// I - Index    GET         READ - display a list of elements
+router.get('/', async (req, res) => {
   try {
-    const foundCandies = await Candy.find({});
-    res.status(200).render("candies/Index", { candies: foundCandies });
+      const foundCandies = await Candy.find({});
+      res.status(200).render('candies/Index', { candies: foundCandies})
+      // res.status(200).send(foundCandies);
   } catch (err) {
-    res.status(400).send(err);
+      res.status(400).send(err);
   }
-});
-// // N - New - allows a user to input a new Candy
-router.get("/new", (req, res) => {
-  res.render("candies/New");
-});
-// DELETE a candy by ID
-router.delete("/:id", async (req, res) => {
-  try {
-    const deletedCandy = await Candy.findByIdAndDelete(req.params.id);
-    console.log(deletedCandy);
-    res.status(200).redirect("/candies");
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
-// update a candy by ID
-router.put("/:id", async (req, res) => {
-  if (req.body.readyToEat === "on") {
-    req.body.readyToEat = true;
-  } else {
-    req.body.readyToEat = false;
-  }
+})
 
-  try {
-    const updatedCandy = await Candy.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-    );
-    console.log(updatedCandy);
-    res.redirect(`/candies/${req.params.id}`);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
+// N - New - allows a user to input a new fruit
+router.get('/new', (req, res) => {
+  res.render('candies/New');
 
-//CREATE
-// To test the validation rules, you can send a POST request to the route with invalid data, such as
-// a negative quantity or a missing name, and check that the route responds with a 400 status code and an appropriate error message.
-router.post('/', async(req, res) => {
-  // // this will be useful when have a user input form
-  if (req.body.readyToEat === 'on') { // if checked, req.body.readyToEat is set to 'on' - or the checkbox is checked
+})
+
+//ID- DELETE--
+router.delete('/:id', async( req, res) => {
+  try{
+      const deletedCandy = await Candy.findByIdAndDelete(req.params.id);
+      // console.log(deletedCandy);
+      res.status(200).redirect('candies');
+  
+  } catch (err) {
+      res.status(400).send(err);
+  }
+  }
+)
+
+// U - UPDATE
+router.put('/:id', async (req, res) => {
+  if (req.body.readyToEat === 'on') {
       req.body.readyToEat = true;
-  } else {                            // if not checked, then it was undefined
+  } else {
       req.body.readyToEat = false;
   }
-  console.log(req.body)
 
   try {
-      const createdCandy = await Candy.create(req.body);
-      res.status(200).send(createdCandy);
+      const updatedCandy = await Candy.findByIdAndUpdate(
+          req.params.id,
+          req.body,
+          { new: true },
+      );
+          console.log(updatedCandy);
+      res.redirect(`/candies/${req.params.id}`);
+  } catch (err) {
+      res.status(400).send(err);
+  }
+})
+
+//Validation rules ensure that the `name` is provided and the `quantity` is at least 5, and check that the route responds with a 400 status code and an appropriate error message.
+// Route to create a new candy
+router.post('/', async (req, res) => {
+  // Convert 'on' to true or false for the readyToEat field
+  if (req.body.readyToEat === 'on') {
+      req.body.readyToEat = true;
+  } else {
+      req.body.readyToEat = false;
+  }
+
+  try {
+    const createdCandy = await Candy.create(req.body);
+        res.status(200).send(createdCandy);
+      } catch (err) {
+        res.status(400).send(err.message); // Send only the error message
+      }
+});
+
+
+
+// E - EDIT - update an existing entry in the database
+router.get("/:id/edit", async (req, res) => {
+  try {
+      const foundCandy = await Candy.findById(req.params.id);
+      res.status(200).render('candies/Edit', {candy: foundCandy});
   } catch (err) {
       res.status(400).send(err);
   }
 })
 
 
-//  EDIT - update an existing entry in the database
-router.get("/:id/edit", async (req, res) => {
+// S - SHOW - show route displays details of an individual fruit
+router.get('/:id', async (req, res) => {
   try {
-    const foundCandy = await Candy.findById(req.params.id);
-    res.status(200).render("candies/Edit", { candy: foundCandy });
+      const foundCandy = await Candy.findById(req.params.id);
+      res.render('candies/Show', {candy: foundCandy});
   } catch (err) {
-    res.status(400).send(err);
+      res.status(400).send(err);
   }
-});
-
+})
 export default router;

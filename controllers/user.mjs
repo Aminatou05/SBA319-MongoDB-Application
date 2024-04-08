@@ -27,99 +27,96 @@ router.get("/seed", async (req, res) => {
     }
   });
 
-
-// Routes
-// //Here's how you can use these query parameters:
-
-// // To get all users: GET /users
-// // To get users with a specific age: GET /users?age=30
-// // To get users with a specific name: GET /users?name=Bob
-// router.get("/", async  (req, res) => {
-//     try {
-//         let query = {};
-
-//         // Check if age query parameter is provided
-//         if (req.query.age) {
-//             query.age = req.query.age;
-//         }
-
-//         // Check if name query parameter is provided
-//         if (req.query.name) {
-//             query.name = req.query.name;
-//         }
-
-//         const users = await User.find(query);
-//         res.json(users);
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// });
-
-// I - Index   display a list of users
-router.get("/", async (req, res) => {
-    try {
+// I - Index    GET         READ - display a list of elements
+router.get('/', async (req, res) => {
+  try {
       const foundUsers = await User.find({});
-      res.status(200).render("users/Index", { users: foundUsers });
-    } catch (err) {
-      res.status(400).send('Error fetching users');
-    }
-  });
-  
-  
-  // // N - New - allows a user to add a new User
-  router.get("/new", (req, res) => {
-    res.render("users/New");
-
-  });
-
- // DELETE a user by ID
-  router.delete("/:id", async (req, res) => {
-    try {
-      const deletedUser = await User.findByIdAndDelete(req.params.id);
-      console.log(deletedUser);
-      res.status(200).redirect("/users");
-    } catch (err) {
+      res.status(200).render('users/Index', { users: foundUsers})
+   
+  } catch (err) {
       res.status(400).send(err);
-    }
-  });
-// // PATCH/update a user by ID 
-router.put("/:id", async (req, res) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        console.log(updatedUser)
-        res.redirect(`/users/${req.params.id}`);
-      } catch (err) {
-        res.status(400).send(err);
-      }
+  }
+})
+
+// N - New - allows a user to input a new user
+router.get('/new', (req, res) => {
+  res.render('users/New');
+
+})
+
+//ID- DELETE--to delete a user by id
+router.delete('/:id', async( req, res) => {
+  try{
+      const deletedUser = await User.findByIdAndDelete(req.params.id);
+      console.log(deletedUser)
+      res.status(200).redirect('users');
+  
+  } catch (err) {
+      res.status(400).send(err);
+  }
+  }
+)
+
+// U - UPDATE
+router.put('/:id', async (req, res) => {
+  if (req.body.rememberMe === 'on') {
+      req.body.rememberMe = true;
+  } else {
+      req.body.rememberMe = false;
+  }
+
+  try {
+      const updatedUser = await User.findByIdAndUpdate(
+          req.params.id,
+          req.body,
+          { new: true },
+      );
+          console.log(updatedUser);
+      res.redirect(`/users/${req.params.id}`);
+  } catch (err) {
+      res.status(400).send(err);
+  }
+})
+
+// C - CREATE
+
+// Route to create a new user
+router.post('/', async (req, res) => {
+  // Convert 'on' to true or false for the rememberMe field
+  if (req.body.rememberMe === 'on') {
+      req.body.rememberMe = true;
+  } else {
+      req.body.rememberMe = false;
+  }
+
+  try {
+      // Create a new user using the User model
+      const createdUser = await User.create(req.body);
+      res.status(200).redirect('/users');
+  } catch (err) {
+      res.status(400).send('You are less than 18 old');
+  }
 });
 
-// post 
-router.post("/", async (req, res) => {
-    const { name, email, age } = req.body;
-  
-    try {
-      const existingUser = await User.findOne({ email });
-  
-      if (existingUser) {
-        return res.status(400).send("User with this email already exists.");
-      }
-  
-      const newUser = await User.create({ name, email, age });
-      res.status(200).send(newUser);
-    } catch (err) {
-      res.status(400).send(err.message);
-    }
-  });
-  
-  
-  //  EDIT - update an existing entry in the database
+// E - EDIT - update an existing entry in the database
 router.get("/:id/edit", async (req, res) => {
-    try {
+  try {
       const foundUser = await User.findById(req.params.id);
-      res.status(200).render("users/Edit", { user: foundUser });
-    } catch (err) {
+      res.status(200).render('users/Edit', {user: foundUser});
+  } catch (err) {
       res.status(400).send(err);
-    }
-  });
+  }
+})
+
+
+// S - SHOW - show route displays details of an individual user
+router.get('/:id', async (req, res) => {
+  try {
+      const foundUser = await User.findById(req.params.id);
+      res.render('users/Show', {user:foundUser});
+  } catch (err) {
+      res.status(400).send(err);
+  }
+})
 
  export default router;
