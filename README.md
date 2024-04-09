@@ -1,6 +1,6 @@
 # My SBA319-MongoDB-Application
 ## Description
-This is a RESTful API server application using Node.js, Express, and MongoDB. It provides CRUD operations for managing three different data collections within the database (such as users, candies, and cookie).
+This is a RESTful API server application using Node.js, Express, and MongoDB. It provides CRUD operations for managing three different data collections within the database (such as users, candies, and cookies).
 # Candy API
 This API allows users to interact with a database of candies. Users can create, read, update, and delete candy entries.
 ## Routes
@@ -40,7 +40,7 @@ Validation rules ensure that the `name` is provided and the `quantity` is at lea
 
 # Cookie API
 ## Description
-This API allows you to manage a collection of delicious cookies. You can add new cookie types, update their details, retrieve a list of all cookies, or find a specific cookie by its name.## Routes
+This API allows you to manage a collection of delicious cookies. You can add new cookie types, update their details, retrieve a list of all cookies, or find a specific cookie by its name.
 ### Seed Route
 - **GET /seed**
   - Populates the database with initial cookie data.
