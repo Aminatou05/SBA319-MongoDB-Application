@@ -68,3 +68,26 @@ The API revolves around the `Cookie` model, which has the following schema:
 - `quantity`: The number of cookies available.
 - `readyToEat`: A boolean indicating if the cookie is ready to eat.
 
+### New Route for users data
+- **GET /new**
+  - Displays a form to input a new user.
+  - Renders the `users/New` view.
+### Delete Route
+- **DELETE /:id**
+  - Deletes a user by their unique ID.
+  - Redirects to `users` upon successful deletion.
+### Update Route
+- **PUT /:id**
+  - Updates a user's information based on their unique ID.
+  - Redirects to `/users/:id` upon successful update.
+### Create Route
+- **POST /**
+  - Creates a new user with the provided data.
+  - Redirects to `/users` upon successful creation.
+## Models
+The API uses the `User` model with fields for `name`, `email`, and `age`.
+## MongoDB Indexes
+I used Indexes for frequently queried fields // Index for querying by name,
+ //validation rules for the age field Age must be atleast 18 
+## Database
+Connection to the database is handled through the `db` module.
