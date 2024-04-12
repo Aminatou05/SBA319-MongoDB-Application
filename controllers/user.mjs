@@ -94,7 +94,7 @@ router.post('/', async (req, res) => {
       const createdUser = await User.create(req.body);
       res.status(200).redirect('/users');
   } catch (err) {
-      res.status(400).send('You are less than 18 old');
+      res.status(400).send('You are less than 18 old or older than 70 years');
   }
 });
 

@@ -9,7 +9,7 @@ class Show extends React.Component {
     return (
       <DefaultLayout title="Show an Individual User">
         <p>
-          The {user.name} is {user.email} and {user.age} years old
+           {user.name} is {user.email} and {user.age} years old
         </p> {user.rememberMe ? `Remember Me`
                            :   `Do Not Remember Me`}
 

@@ -22,11 +22,13 @@ app.set("view engine", "jsx");
 app.set("views", "./views");
 app.engine("jsx", jsxViewEngine());
 
+
 // ================ Middleware ================
 
 app.use(express.urlencoded({ extended: false }));
 
 app.use(methodOverride("_method"));
+app.use(express.static('styles'))
 
 // ================ Routes ================
 

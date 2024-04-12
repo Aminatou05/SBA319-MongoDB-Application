@@ -14,7 +14,7 @@ class Index extends React.Component {
             {users.map((user, i) => {
               return (
                 <li key={i}>
-                  The{" "}
+                  {" "}
                   <a href={`/users/${user._id}`}>{user.name}</a> is{" "}
                   {user.email} {user.age} years old<br></br>
                   {user.RememberMe
